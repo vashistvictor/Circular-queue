@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct queue
+{
+    int size,f,b;
+    int *arr;
+}*q;
+
+int isEmpty()
+{
+    if(q->b==q->f)
+        return 1;
+    else
+        return 0;
+}
+
+int isFull()
+{
+    if((q->b+1)%(q->size) == q->f)
+        return 1;
+    else
+        return 0;
+}
+
+void deequeue()
+{
+    if(isEmpty())
+    {
+        printf("Q is empty\n");
+    }
+    else
+    {
+        q->f = (q->f+1)%q->size;
+        printf("deleted element: %d\n",q->arr[q->f]);
+    }
+    
+}
+
+void enqueue(int val)
+{
+    if(isFull())
+    {
+        printf("Q is full\n");
+    }
+    else
+    {
+        q->b = (q->b+1)%q->size;
+        q->arr[q->b] = val;
+        printf("inserted element: %d\n",q->arr[q->b]);
+    }
+}
+
+int main()
+{
+    q = (struct queue*)malloc(sizeof(struct queue));
+    q->size = 6;
+    q->b = q->f = -1;
+    q->arr = (int*)malloc(q->size * sizeof(int));
+    deequeue();
+    enqueue(15);
+    enqueue(25);
+    enqueue(35);
+    deequeue();
+    enqueue(45);
+    deequeue();
+    deequeue();
+    deequeue();
+    deequeue();
+    deequeue();
+    enqueue(25);
+    enqueue(35);
+    enqueue(45);
+    enqueue(55);
+    enqueue(65);
+    enqueue(75);
+    enqueue(85);
+    enqueue(95);
+    deequeue();
+    enqueue(95);
+    return 0;
+}
